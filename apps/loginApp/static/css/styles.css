@@ -1,0 +1,284 @@
+*{
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    background-color: white;
+    margin-top:60px;
+    margin-bottom: 20px;
+}
+
+h3{
+    margin-top: 10px;
+}
+
+.nav{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid slategray;
+    z-index: 1000;
+    background-color: white;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5px;
+}
+
+.nav-item:nth-child(1){
+    margin-top: -3px;
+}
+
+.bodywidth70{
+    width: 70%;
+    margin-left: 15%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.bodypadding10{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.bodypadding5{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.bodypadding3{
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.mg-top--70{
+    margin-top: -70px;
+}
+
+.bg-grad{
+    background: radial-gradient(circle, rgba(211,240,172,1) 13%, rgba(251,252,249,1) 100%);
+}
+
+.go-back{
+    position:absolute;
+    top:80px;
+    right:10%;
+}
+
+.warning{
+    color: darkgoldenrod;
+    background-color: rgb(242, 242, 180);
+}
+.error{
+    color: red;
+    background-color: rgb(243, 208, 213);
+}
+.success{
+    color: green;
+    background-color: rgb(206, 241, 206);
+}
+.warning, .error, .success{
+    border-radius: 8px;
+    padding: 10px;
+    width: 60%;
+    margin-top:5px;
+    margin-bottom:5px;
+    list-style-type: none;
+}
+
+/*De dojoreads*/
+
+.mg-bot-30{
+    margin-bottom: 30px;;
+}
+
+div.dos-forms h4{
+    font-weight: 100;
+}
+
+.rating{
+    padding-top:10px;
+}
+
+.mg-auto{
+    margin-left: auto;
+}
+
+.posted_by{
+    color: slategray;
+    font-weight: 300;
+    font-size: 1em;
+}
+
+.texto_normal{
+    color: black;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 0.9em;
+}
+
+.enlarged{
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.bold-500{
+    font-weight: 500;
+}
+
+#form-message{
+    margin-top: 20px;
+}
+.message{
+    background-color: rgb(206, 235, 207);
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+div .comment{
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.comment textarea{
+    background-color: rgb(172, 243, 172);
+}
+
+.comment-i{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom:10px;
+}
+
+textarea{
+    margin-bottom: 10px;
+}
+
+.mg-top-110{
+    margin-top:110px;
+}
+
+.color1{
+    background-color: red;
+}
+.color2{
+    background-color: blue;
+}
+
+#nav-wall{
+    z-index: 10000;
+    position: fixed;
+    top: 0px;
+    width: 90%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+    background-color: white;
+    border-bottom: 1px solid rgb(69, 70, 70);
+    padding-top: 30px;
+    margin-bottom: 5px;
+    padding-right: 3%;
+    padding-left: 3%;
+}
+
+.mg3p{
+    padding-left:3%;
+    padding-right:3%;
+}
+
+.mg-bot-50{
+    margin-bottom: 50px;
+}
+
+.postedby-erase{
+    display: flex;
+}
+.msg-header:nth-child(2){
+    margin-left:auto;
+}
+.btn-erase-msg, .btn-erase-com{
+    width:80px;
+}
+
+.nav-it:nth-child(1){
+    margin-left: 20px;
+}
+.nav-it2{
+    margin-top: -10px;
+}
+
+.nav-it:nth-child(2){
+    margin-left: auto;
+    font-weight: 500;
+}
+
+.nav-it:nth-child(3){
+    margin-left: 40px;
+    margin-right: 20px;
+}
+
+
+div.list-box{
+    margin-top: 50px;
+    color: darkgrey;
+    background-color:rgb(206, 215, 228);
+    border-radius: 8px;
+    padding: 5px;
+    width: 100%;
+}
+.no-bullets{
+    list-style-type: none;
+    margin-top:10px;
+}
+
+tr{
+    margin-top: 10px;
+    margin-bottom:10px;
+    height:40px;
+}
+td:nth-child(1){
+    width: 150px;
+}
+td:nth-child(2){
+    font-weight: bold;
+}
+
+.iblock-vatop{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.choose-stars{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height:50px;
+}
+
+.choose-stars > span{
+    margin-left: 10px;
+    font-size: 30px;
+}
+.choose-stars > span.clickable:hover{
+    color: yellow;
+}
+.choose-stars:nth-child(1){
+    margin-right: 30px;
+}
+
+.checked {
+    color: orange;
+}
+
+
+@media screen and (max-width: 600px) {
+    .bodywidth70 {
+        width: 94%;
+        margin-left: 3%;
+    }
+
+  }

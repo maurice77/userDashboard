@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/functionsDash.js' %}"></script>
+
+    <title>{% if tipo == "admin" %}Admin{% else %}User{% endif %} Dashboard</title>
+</head>
+<body class="bodypadding3">
+
+<!--MODAL-->
+  <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="removeModalLabel">Eliminar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="modal-remove-btn">Remove User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--FIN MODAL-->
+
+<ul class="nav">
+    <li class="nav-item nav-link enlarged">TestApp</li>
+    <li class="nav-item bold-500"><a class="nav-link" 
+        {% if tipo == "admin" %} 
+            href="{% url 'dashboard_admin' %}"
+        {% else %}
+            href="{% url 'dashboard' %}"
+        {% endif %}
+    >Dashboard</a></li>
+    <li class="nav-item">
+        <a class="nav-link" 
+        {% if tipo == "admin" %}
+        href="{% url 'admin_user_edit' user_id=request.session.id %}"
+        {% else %}
+        href="{% url 'user_edit' %}"
+        {% endif %}
+        >Profile</a>
+    </li>
+    <li class="nav-item mg-auto"><a class="nav-link" href="{% url 'signout' %}">Log Off</a></li>
+</ul>
+
+<h3>{% if tipo == "admin" %}Manage{% else %}All{% endif %} Users</h3>
+
+{% if tipo == "admin" %}
+<a href="{% url 'user_new' %}" class="btn btn-secondary go-back">New User</a>
+{% endif %}
+
+<br>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Created At</th>
+        <th scope="col">User Level</th>
+        {% if tipo == "admin" %}<th scope="col">Actions</th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr id="tr-{{ user.id }}">
+        <th scope="row">{{ user.id }}</th>
+        <td><a href="{% url 'the_wall' id=user.id %}">{{ user.full_name }}</a></td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.created_at|date:"M dS Y" }}</td>
+        <td>{{ user.user_proxy.level_name }}</td>
+        {% if tipo == "admin" %}
+        <td scope="col">
+            <a class="btn btn-outline-secondary" href="{% url 'admin_user_edit' user_id=user.id %}">edit</a> | 
+            <button class="btn btn-outline-danger" id={{ user.id }}
+            data-bs-toggle="modal" data-bs-target="#removeModal">remove</a> <!--href="{% url 'admin_user_remove' user_id=user.id %}-->
+        </td>{% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+  <input type="hidden" value="" id="id-to-remove">
+
+</body>
+</html>

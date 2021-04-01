@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/functionsEdit.js' %}"></script>
+
+    <title>Edit {% if tipo == "admin" %}User{% else %}Profile{% endif %}</title>
+</head>
+<body class="bodypadding3">
+
+<ul class="nav">
+    <li class="nav-item nav-link enlarged">TestApp</li>
+    <li class="nav-item"><a class="nav-link" 
+        {% if tipo == "admin" %} 
+            href="{% url 'dashboard_admin' %}"
+        {% else %}
+            href="{% url 'dashboard' %}"
+        {% endif %}
+    >Dashboard</a></li>
+    <li class="nav-item bold-500">
+        <a class="nav-link" 
+        {% if tipo == "admin" %}
+        href="{% url 'admin_user_edit' user_id=request.session.id %}"
+        {% else %}
+        href="{% url 'user_edit' %}"
+        {% endif %}
+        >Profile</a>
+    </li>
+    <li class="nav-item mg-auto"><a class="nav-link" href="{% url 'signout' %}">Log Off</a></li>
+</ul>
+
+<h3>{% if tipo == "admin" %}Edit user #{{user.id}}{% else %}Edit profile{% endif %}</h3>
+{% if tipo == "admin" %}
+<a href="{% url 'dashboard_admin' %}" class="btn btn-secondary go-back">Return to Dashboard</a>
+{% endif %}
+
+{% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+    {% endfor %}
+</ul>
+{% endif %}
+
+<br>
+
+<!--FORMS-->
+
+<div class="row">
+
+    <form class="col-md-6" action="{% url 'update_data' %}" id="form_datagral" method="POST">
+        {% csrf_token %}
+
+        <h4>Edit Information</h4>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="email" name="email" placeholder="your@email.please" 
+                value="{{ user.email }}">
+            <label for="email">Email Address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Your name" 
+                value="{{ user.first_name }}" onblur="chkErrores('first_name')" onfocus="eraseError('first_name')">
+            <label for="first_name">First Name</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Your last name" 
+                value="{{ user.last_name }}" onblur="chkErrores('last_name')" onfocus="eraseError('last_name')">
+            <label for="last_name">Last Name</label>
+        </div>
+
+        {% if tipo == "admin" %}
+        <div class="form-floating mb-3">
+        <select class="form-select" name="user_level" id="user_level" 
+        required>
+            <option value="1" {% if user.user_proxy.level_name == "normal" %}selected{% endif %} >Normal</option>
+            <option value="9" {% if user.user_proxy.level_name == "admin" %}selected{% endif %}>Admin</option>
+        </select>
+        <label for="user_level">User Level</label>
+        </div>
+        {% endif %}
+
+        <div class="row mgt-1 mg-bot-30">
+            <div class="col-10">
+                <button id="btn-submit-datagral" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <input type="hidden" name="tipo" value="datagral">
+
+    </form>
+
+    <form class="col-md-6" action="{% url 'update_data' %}" id="form_pass" method="POST">
+        {% csrf_token %}
+
+        <h4>Change Password</h4>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" name="password" placeholder="New password" 
+                onblur="chkErrores('password')" onfocus="eraseError('password')">
+            <label for="password">New Password</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm new password" 
+                onblur="chkErrores('confirm_password')" onfocus="eraseError('confirm_password')">
+            <label for="confirm_password">New Password confirmation</label>
+        </div>
+
+        <div class="row mgt-1 mg-bot-30">
+            <div class="col-10">
+                <button id="btn-submit-pass" class="btn btn-primary">Update Password</button>
+            </div>
+        </div>
+
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <input type="hidden" name="tipo" value="pass">
+
+    </form>
+
+    {% if not tipo == "admin" or user.id == request.session.id %}
+    <form action="{% url 'update_data' %}" id="form_descrip" method="POST">
+        {% csrf_token %}
+        <h4>Edit Description</h4>
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Add a Review" id="description" 
+            name="description" style="height:100px;" >{{ user.user_proxy.description }}</textarea>
+            <label for="description">Your description...</label>
+        </div>
+        <div class="row mgt-1 mg-bot-30">
+            <div class="col-10">
+                <button id="btn-submit-descrip" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <input type="hidden" name="tipo" value="descrip">
+    </form>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

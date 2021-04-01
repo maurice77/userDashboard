@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+   
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>Login</title>
+</head>
+<body class="bg-grad bodywidth70 bodypadding10">
+
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link enlarged" href="{% url 'home' %}">TestApp</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+        <li class="nav-item mg-auto"><a class="nav-link" href="{% url 'signin' %}">Sign In</a></li>
+    </ul>
+
+    <h3>Signin</h3>
+
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form action="" id="formulario" method="POST">
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Type email address" 
+                value="{{ email }}">
+            <label for="email">Email Address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" name="password" 
+            placeholder="Enter Password (min-length=8 characters)" value="{{ password }}"> 
+            <label for="network">Password</label>
+            <!--{% load static %} <img id="eye_img" class="eye show_pass" src="{% static 'images/show_and_hide.png' %}" alt="home" /-->
+        </div>
+        <div class="row mgt-1">
+            <div class="col-10">
+                <button id="btn-submit" class="btn btn-primary">Sign In</button>
+            </div>
+        </div>
+
+    </form>
+
+    <a href="{% url 'register' %}">Don't have an account? Register.</a>
+
+</body>
+</html>

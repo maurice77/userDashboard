@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+   
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>Home Page</title>
+</head>
+<body class="bodypadding5 mg-top--70">
+
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link enlarged" href="{% url 'home' %}">TestApp</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+      <li class="nav-item mg-auto"><a class="nav-link" href="{% url 'signin' %}">Sign In</a></li>
+    </ul>
+
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Welcome to the Test</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">We are going to build a cool application using a MVC framework! This application was built with the Village BB folks!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'signin' %}" class="btn btn-outline-secondary btn-lg px-4">Start</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-4">
+            <h4>Manage Users</h4>
+            <p>Using this application, you'll learn how to add, remove and edit users for the application</p>
+        </div>
+        <div class="col-sm-4">
+            <h4>Leave Messages</h4>
+            <p>Users will be able to leave a message to another using this application</p>
+        </div>
+        <div class="col-sm-4">
+            <h4>Edit User Information</h4>
+            <p>Admins will be able to edit another user's information (email address, first name, last name, etc...)</p>
+        </div>
+      </div>
+
+</body>
+</html>
